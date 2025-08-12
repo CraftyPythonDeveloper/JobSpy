@@ -1,4 +1,5 @@
 from __future__ import annotations
+import os
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Tuple
@@ -47,8 +48,9 @@ def scrape_jobs(
     offset: int | None = 0,
     hours_old: int = None,
     enforce_annual_salary: bool = False,
-    verbose: int = 0,
+    verbose: int = 2,
     user_agent: str = None,
+    export_to_excel: bool = False,
     **kwargs,
 ) -> pd.DataFrame:
     """
@@ -213,9 +215,15 @@ def scrape_jobs(
         jobs_df = jobs_df[desired_order]
 
         # Step 4: Sort the DataFrame as required
-        return jobs_df.sort_values(
+        jobs_df = jobs_df.sort_values(
             by=["site", "date_posted"], ascending=[True, False]
         ).reset_index(drop=True)
+
+        if export_to_excel:
+            os.makedirs(os.path.join(os.getcwd(), "exports"), exist_ok=True)
+            jobs_df.to_excel(f"exports/job_postings_{pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')}.xlsx", index=False)
+
+        return jobs_df
     else:
         return pd.DataFrame()
 
