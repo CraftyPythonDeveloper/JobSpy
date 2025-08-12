@@ -13,36 +13,21 @@
 ### Installation
 
 ```
-pip install -U python-jobspy
+pip install -U python-jobspy-ui
 ```
 
 _Python version >= [3.10](https://www.python.org/downloads/release/python-3100/) required_
 
 ### Usage
 
-```python
-import csv
-from jobspy import scrape_jobs
-
-jobs = scrape_jobs(
-    site_name=["indeed", "linkedin", "zip_recruiter", "google"], # "glassdoor", "bayt", "naukri", "bdjobs"
-    search_term="software engineer",
-    google_search_term="software engineer jobs near San Francisco, CA since yesterday",
-    location="San Francisco, CA",
-    results_wanted=20,
-    hours_old=72,
-    country_indeed='USA',
-    
-    # linkedin_fetch_description=True # gets more info such as description, direct job url (slower)
-    # proxies=["208.195.175.46:65095", "208.195.175.45:65095", "localhost"],
-)
-print(f"Found {len(jobs)} jobs")
-print(jobs.head())
-jobs.to_csv("jobs.csv", quoting=csv.QUOTE_NONNUMERIC, escapechar="\\", index=False) # to_excel
+```
+jobspy
 ```
 
 ### Output
+Output will be available in the current working directory under exports folder.
 
+Sample excel output
 ```
 SITE           TITLE                             COMPANY           CITY          STATE  JOB_TYPE  INTERVAL  MIN_AMOUNT  MAX_AMOUNT  JOB_URL                                            DESCRIPTION
 indeed         Software Engineer                 AMERICAN SYSTEMS  Arlington     VA     None      yearly    200000      150000      https://www.indeed.com/viewjob?jk=5e409e577046...  THIS POSITION COMES WITH A 10K SIGNING BONUS!...

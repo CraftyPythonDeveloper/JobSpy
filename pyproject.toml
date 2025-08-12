@@ -1,33 +1,55 @@
 [build-system]
-requires = [ "poetry-core",]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry]
-name = "python-jobspy"
+[project]
+name = "python-jobspy-ui"
 version = "1.1.82"
 description = "Job scraper for LinkedIn, Indeed, Glassdoor, ZipRecruiter & Bayt"
-authors = ["Cullen Watson <cullen@cullenwatson.com>", "Zachary Hampton <zachary@zacharysproducts.com>"]
-homepage = "https://github.com/cullenwatson/JobSpy"
+authors = [
+    { name = "Cullen Watson", email = "cullen@cullenwatson.com" },
+    { name = "Zachary Hampton", email = "zachary@zacharysproducts.com" },
+    { name = "Amit Yadav", email = "amityadav4664@gmail.com"}
+]
+requires-python = "~=3.10"
 readme = "README.md"
-keywords = [ "jobs-scraper", "linkedin", "indeed", "glassdoor", "ziprecruiter", "bayt", "naukri"]
-[[tool.poetry.packages]]
-include = "jobspy"
+keywords = [
+    "jobs-scraper",
+    "linkedin",
+    "indeed",
+    "glassdoor",
+    "ziprecruiter",
+    "bayt",
+    "naukri",
+]
+dependencies = [
+    "requests>=2.31.0,<3",
+    "beautifulsoup4>=4.12.2,<5",
+    "pandas>=2.1.0,<3",
+    "NUMPY==1.26.3",
+    "pydantic>=2.3.0,<3",
+    "tls-client>=1.0.1,<2",
+    "markdownify>=0.13.1,<0.14",
+    "regex>=2024.4.28,<2025",
+    "openpyxl>=3.1.5",
+]
+
+[project.urls]
+Homepage = "https://github.com/cullenwatson/JobSpy"
+
+[project.scripts]
+jobspy = "jobspy.__main__:main"
+
+[dependency-groups]
+dev = [
+
+]
+
+[tool.hatch.build.targets.sdist]
+include = ["jobspy"]
+
+[tool.hatch.build.targets.wheel]
+include = ["jobspy"]
 
 [tool.black]
 line-length = 88
-
-[tool.poetry.dependencies]
-python = "^3.10"
-requests = "^2.31.0"
-beautifulsoup4 = "^4.12.2"
-pandas = "^2.1.0"
-NUMPY = "1.26.3"
-pydantic = "^2.3.0"
-tls-client = "^1.0.1"
-markdownify = "^0.13.1"
-regex = "^2024.4.28"
-
-[tool.poetry.group.dev.dependencies]
-jupyter = "^1.0.0"
-black = "*"
-pre-commit = "*"
