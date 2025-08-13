@@ -32,7 +32,7 @@ dependencies = [
     "markdownify>=0.13.1,<0.14",
     "regex>=2024.4.28,<2025",
     "openpyxl>=3.1.5",
-    "pyqt5-qt5<=5.15.2",
+    "pyqt5>=5.15.11",
 ]
 
 [project.urls]
@@ -45,6 +45,9 @@ jobspy = "jobspy.__main__:main"
 dev = [
 
 ]
+
+[tool.uv]
+constraint-dependencies = ["pyqt5-qt5 <=5.15.2"]
 
 [tool.hatch.build.targets.sdist]
 include = ["jobspy"]
