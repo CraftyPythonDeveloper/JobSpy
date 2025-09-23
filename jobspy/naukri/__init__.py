@@ -56,8 +56,9 @@ class Naukri(Scraper):
             is_tls=False,
             has_retry=True,
             delay=5,
-            clear_cookies=True,
+            clear_cookies=False,
         )
+        self.session = requests.Session()
         self.session.headers.update(naukri_headers)
         self.scraper_input = None
         self.country = "India"  #naukri is india-focused by default
@@ -105,6 +106,7 @@ class Naukri(Scraper):
                 params["days"] = seconds_old // 86400  # Convert to days
 
             params = {k: v for k, v in params.items() if v is not None}
+            time.sleep(2)
             try:
                 log.debug(f"Sending request to {self.base_url} with params: {params}")
                 response = self.session.get(self.base_url, params=params, timeout=10)
