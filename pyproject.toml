@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "python-jobspy-ui"
-version = "1.2.00"
+version = "1.3.00"
 description = "Job scraper for LinkedIn, Indeed, Glassdoor, ZipRecruiter & Bayt"
 authors = [
     { name = "Cullen Watson", email = "cullen@cullenwatson.com" },
@@ -33,6 +33,8 @@ dependencies = [
     "regex>=2024.4.28,<2025",
     "openpyxl>=3.1.5",
     "pyqt5>=5.15.11",
+    "sqlalchemy>=2.0.43",
+    "pyodbc>=5.2.0",
 ]
 
 [project.urls]
