@@ -8,6 +8,7 @@ import pandas as pd
 
 from jobspy.bayt import BaytScraper
 from jobspy.bdjobs import BDJobs
+from jobspy.db_utils import insert_scraped_jobs, create_required_tables
 from jobspy.glassdoor import Glassdoor
 from jobspy.google import Google
 from jobspy.indeed import Indeed
@@ -69,6 +70,7 @@ def scrape_jobs(
     }
     set_logger_level(verbose)
     job_type = get_enum_from_value(job_type) if job_type else None
+    create_required_tables()
 
     def get_site_type():
         site_types = list(Site)
@@ -219,10 +221,7 @@ def scrape_jobs(
             by=["site", "date_posted"], ascending=[True, False]
         ).reset_index(drop=True)
 
-        if export_to_excel:
-            os.makedirs(os.path.join(os.getcwd(), "exports"), exist_ok=True)
-            jobs_df.to_excel(f"exports/job_postings_{pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')}.xlsx", index=False)
-
+        insert_scraped_jobs(jobs_df)
         return jobs_df
     else:
         return pd.DataFrame()
