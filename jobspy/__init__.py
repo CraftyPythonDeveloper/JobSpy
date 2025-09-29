@@ -34,13 +34,13 @@ def scrape_jobs(
     site_name: str | list[str] | Site | list[Site] | None = None,
     search_term: str | None = None,
     google_search_term: str | None = None,
-    location: str | None = None,
+    location: str | None = India,
     distance: int | None = 50,
     is_remote: bool = False,
     job_type: str | None = None,
     easy_apply: bool | None = None,
     results_wanted: int = 15,
-    country_indeed: str = "usa",
+    country_indeed: str = "India",
     proxies: list[str] | str | None = None,
     ca_cert: str | None = None,
     description_format: str = "markdown",
@@ -58,6 +58,7 @@ def scrape_jobs(
     Scrapes job data from job boards concurrently
     :return: Pandas DataFrame containing job data
     """
+    country_indeed = "India"
     SCRAPER_MAPPING = {
         Site.LINKEDIN: LinkedIn,
         Site.INDEED: Indeed,
